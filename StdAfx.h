@@ -14,7 +14,8 @@
 
 #include <windows.h>
 #include <tchar.h>
-
+#include <shlwapi.h>
+#include <Shellapi.h>
 // TODO: reference additional headers your program requires here
 
 //{{AFX_INSERT_LOCATION}}

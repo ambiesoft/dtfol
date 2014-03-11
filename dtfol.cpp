@@ -2,6 +2,8 @@
 //
 
 #include "stdafx.h"
+#include "../MyUtility/GetDesktopDir.h"
+#pragma comment(lib,"shlwapi.lib")
 
 int APIENTRY WinMain(HINSTANCE hInstance,
                      HINSTANCE hPrevInstance,
@@ -21,9 +23,21 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 	wsprintf(szDay, _T("%0d"), st.wDay);
 
 	TCHAR szAll[32];
-	wsprintf(szAll, _T("%s/%s/%s"), szYear,szMonth,szDay);
+	wsprintf(szAll, _T("%s-%s-%s"), szYear,szMonth,szDay);
 
-	SHGetSpecialFolderLocation(
+	TCHAR szTarget[MAX_PATH];
+	if(!GetDesktopDir(szTarget, MAX_PATH))
+	{
+		MessageBox(NULL, _T("No Desktop dir"), _T("dtfol"), MB_ICONERROR);
+		return 1;
+	}
+
+	PathAddBackslash(szTarget);
+	lstrcat(szTarget, szAll);
+
+	CreateDirectory(szTarget, NULL);
+//	ShellExecute(NULL, _T("open"), _T("C:\\LegacyPrograms\\mdie\\MDIE.exe"),
+//		szTarget, NULL, SW_SHOW);
 	return 0;
 }
 
