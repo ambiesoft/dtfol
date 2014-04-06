@@ -3,6 +3,7 @@
 
 #include "stdafx.h"
 #include "../MyUtility/GetDesktopDir.h"
+#include "../MyUtility/tstring.h"
 #pragma comment(lib,"shlwapi.lib")
 
 int APIENTRY WinMain(HINSTANCE hInstance,
@@ -20,7 +21,7 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 
 	wsprintf(szYear, _T("%d"), st.wYear);
 	wsprintf(szMonth, _T("%02d"), st.wMonth);
-	wsprintf(szDay, _T("%0d"), st.wDay);
+	wsprintf(szDay, _T("%02d"), st.wDay);
 
 	TCHAR szAll[32];
 	wsprintf(szAll, _T("%s-%s-%s"), szYear,szMonth,szDay);
@@ -36,8 +37,13 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 	lstrcat(szTarget, szAll);
 
 	CreateDirectory(szTarget, NULL);
-//	ShellExecute(NULL, _T("open"), _T("C:\\LegacyPrograms\\mdie\\MDIE.exe"),
-//		szTarget, NULL, SW_SHOW);
+
+	tstring target;
+	target = _T("\"");
+	target += szTarget;
+	target += _T("\"");
+	ShellExecute(NULL, _T(""), _T("C:\\LegacyPrograms\\mdie\\MDIE.exe"),
+		target.c_str(), _T("C:\\LegacyPrograms\\mdie"), SW_SHOW);
 	return 0;
 }
 
