@@ -18,6 +18,12 @@
 #include <Shellapi.h>
 // TODO: reference additional headers your program requires here
 
+#include "../lsMisc/OpenCommon.h"
+#include "../lsMisc/stdwin32/stdwin32.h"
+using namespace stdwin32;
+
+#define APPNAME _T("dtfol")
+
 //{{AFX_INSERT_LOCATION}}
 // Microsoft Visual C++ will insert additional declarations immediately before the previous line.
 
