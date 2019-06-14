@@ -16,11 +16,7 @@
 #include <tchar.h>
 #include <shlwapi.h>
 #include <Shellapi.h>
-// TODO: reference additional headers your program requires here
 
-#include "../lsMisc/OpenCommon.h"
-#include "../lsMisc/stdwin32/stdwin32.h"
-using namespace stdwin32;
 
 #define APPNAME _T("dtfol")
 

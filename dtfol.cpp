@@ -4,6 +4,12 @@
 #include "stdafx.h"
 #include "../lsMisc/GetDesktopDir.h"
 #include "../lsMisc/tstring.h"
+#include "../lsMisc/stdosd/stdosd.h"
+#include "../lsMisc/OpenCommon.h"
+
+using namespace Ambiesoft;
+using namespace Ambiesoft::stdosd;
+
 #pragma comment(lib,"shlwapi.lib")
 
 int APIENTRY WinMain(HINSTANCE hInstance,
@@ -11,7 +17,6 @@ int APIENTRY WinMain(HINSTANCE hInstance,
                      LPSTR     lpCmdLine,
                      int       nCmdShow)
 {
- 	// TODO: Place code here.
 	SYSTEMTIME st;
 	GetLocalTime(&st);
 
@@ -38,25 +43,25 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 
 	if (PathIsDirectory(szTarget))
 	{
-		tstring message = string_format(_T("Directory \"%s\" already exists."), szTarget);
+		tstring message = stdFormat(_T("Directory \"%s\" already exists."), szTarget);
 		MessageBox(NULL, message.c_str(), APPNAME, MB_ICONASTERISK);
 	}
 	else
 	{
 		if (!CreateDirectory(szTarget, NULL))
 		{
-			tstring message = string_format(_T("Failed to create directory \"%s\"."), szTarget);
+			tstring message = stdFormat(_T("Failed to create directory \"%s\"."), szTarget);
 			MessageBox(NULL, message.c_str(), APPNAME, MB_ICONERROR);
 			return 1;
 		}
 	}
-	Ambiesoft::OpenCommon(NULL, szTarget);
-	//tstring target;
-	//target = _T("\"");
-	//target += szTarget;
-	//target += _T("\"");
-	//ShellExecute(NULL, _T(""), _T("C:\\LegacyPrograms\\mdie\\MDIE.exe"),
-	//	target.c_str(), _T("C:\\LegacyPrograms\\mdie"), SW_SHOW);
+	
+	if (!OpenCommon(NULL, szTarget))
+	{
+		tstring message = stdFormat(_T("Failed to open directory \"%s\"."), szTarget);
+		MessageBox(NULL, message.c_str(), APPNAME, MB_ICONERROR);
+		return 1;
+	}
 	return 0;
 }
 
